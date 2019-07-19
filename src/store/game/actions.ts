@@ -6,6 +6,10 @@ const gameStartRequested = (): actionTypes.GameStartRequested => ({
   type: '@game/GameStartRequested'
 });
 
+const gameStart = (): actionTypes.StartGame => ({
+  type: '@game/StartGame'
+});
+
 export const setQuestionsType = (questionsType: QuestionsType): actionTypes.SetQuestionsType => ({
   questionsType,
   type: '@game/SetQuestionsType',
@@ -34,5 +38,7 @@ export const setGameScore = (score: number): actionTypes.SetGameScore => ({
 export const startGame = () => {
   return async (dispatch: Dispatch<actionTypes.GameAction>, getState: () => GameState) => { // tu moglby byc rootstate
     dispatch(gameStartRequested());
+    console.log('zaciagam pytania');
+    dispatch(gameStart());
   };
 };

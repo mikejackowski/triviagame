@@ -10,7 +10,6 @@ export interface GameStartCompleted {
 
 export interface StartGame {
   type: '@game/StartGame';
-  gameInProgress: boolean;
 }
 
 export interface SetDifficulty {

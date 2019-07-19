@@ -4,8 +4,9 @@ import { colorTheme } from '../Common/colorVariables';
 
 import { ThunkDispatch } from 'redux-thunk';
 import actions from '../../store/actions';
-import { Difficulty, GameLenght, GameState, QuestionsType } from '../../store/game/state';
+import { Difficulty, GameLenght, QuestionsType } from '../../store/game/state';
 import { RootState } from '../../store/rootState';
+import Button from '../Common/Button/Button.component';
 import * as Styled from './Menu.styled';
 
 type DispatchProps = {
@@ -17,7 +18,6 @@ type DispatchProps = {
 };
 
 type StateProps = {
-  playerName: string,
   difficulty: Difficulty,
   gameLenght: GameLenght,
   toBeatScore: number,
@@ -33,13 +33,17 @@ type Props = DispatchProps & StateProps & IProps;
 
 class Menu extends Component<Props, IState> {
 
+  state: IState = {
+    playerName: ''
+  };
+
   playerNameInputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
     this.setState({
       playerName: e.currentTarget.value
     });
   }
 
-  difficultyHandler = (changeTo: 'Harder' | 'Easier') => {
+  difficultyHandler = (changeTo: 'Harder' | 'Easier') => () => {
     const difficulty = this.props.difficulty;
 
     if (changeTo === 'Harder') {
@@ -61,12 +65,39 @@ class Menu extends Component<Props, IState> {
     return null;
   }
 
-  render() {
-    const { playerName, difficulty, gameLenght, toBeatScore } = this.props;
+  gameLenghtHandler = (changeTo: 'Longer' | 'Shorter') => () => {
+    const gameLenght = this.props.gameLenght;
 
+    if (changeTo === 'Longer') {
+      if (gameLenght === GameLenght.AVERAGE) {
+        return this.props.setGameLenght(GameLenght.LONG);
+      }
+      if (gameLenght === GameLenght.SHORT) {
+        return this.props.setGameLenght(GameLenght.AVERAGE);
+      }
+      return null;
+    }
+
+    if (gameLenght === GameLenght.LONG) {
+      return this.props.setGameLenght(GameLenght.AVERAGE);
+    }
+    if (gameLenght === GameLenght.AVERAGE) {
+      return this.props.setGameLenght(GameLenght.SHORT);
+    }
+    return null;
+  }
+
+  startGame = () => {
+    this.props.setPlayerName(this.state.playerName);
+    this.props.startGame();
+  }
+
+  render() {
+    const { difficulty, gameLenght, toBeatScore } = this.props;
+    const { playerName } = this.state;
     return (
       <Styled.MenuWrapper>
-        <Styled.SettingWrapper>
+        <Styled.PlayerNameWrapper>
           <Styled.InputWrapper>
             <Styled.PlayerNameInput
               theme={colorTheme}
@@ -79,15 +110,58 @@ class Menu extends Component<Props, IState> {
               To beat: {toBeatScore}
             </Styled.PreviousHighScoreDiv>
           </Styled.InputWrapper>
+        </Styled.PlayerNameWrapper>
+        <Styled.SettingWrapper>
+          <Styled.DifficultyWrapper>
+            <Styled.GameSetting>
+              {difficulty}
+            </Styled.GameSetting>
+            <Styled.DifficultyButtonWrapper>
+              <Button
+                onButtonClick={this.difficultyHandler('Harder')}
+                disabled={this.props.difficulty === Difficulty.HARD}
+              >
+                +
+              </Button>
+              <Button
+                onButtonClick={this.difficultyHandler('Easier')}
+                disabled={this.props.difficulty === Difficulty.EASY}
+              >
+                -
+              </Button>
+            </Styled.DifficultyButtonWrapper>
+          </Styled.DifficultyWrapper>
         </Styled.SettingWrapper>
         <Styled.SettingWrapper>
-          {difficulty}
+          <Styled.DifficultyWrapper>
+            <Styled.GameSetting>
+              {gameLenght}
+            </Styled.GameSetting>
+            <Styled.DifficultyButtonWrapper>
+              <Button
+                onButtonClick={this.gameLenghtHandler('Longer')}
+                disabled={this.props.gameLenght === GameLenght.LONG}
+              >
+                +
+              </Button>
+              <Button
+                onButtonClick={() => this.gameLenghtHandler('Shorter')}
+                disabled={this.props.gameLenght === GameLenght.SHORT}
+              >
+                -
+              </Button>
+            </Styled.DifficultyButtonWrapper>
+          </Styled.DifficultyWrapper>
         </Styled.SettingWrapper>
         <Styled.SettingWrapper>
-          {gameLenght}
-        </Styled.SettingWrapper>
-        <Styled.SettingWrapper>
-          button will go here
+          <Styled.StartGameButtonWrapper>
+            <Button
+              onButtonClick={this.startGame}
+              disabled={this.state.playerName.length ? false : true}
+            >
+              start game
+            </Button>
+          </Styled.StartGameButtonWrapper>
         </Styled.SettingWrapper>
       </Styled.MenuWrapper>
     );
@@ -98,7 +172,6 @@ class Menu extends Component<Props, IState> {
 const mapStateToProps = (state: RootState): StateProps => ({
   difficulty: state.game.difficulty,
   gameLenght: state.game.gameLenght,
-  playerName: state.game.playerName,
   questionsType: state.game.questionsType,
   toBeatScore: 1,
 });
