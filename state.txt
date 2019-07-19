@@ -1,0 +1,11 @@
+game:
+  playerName: string,
+  difficulty: "Easy" | "Medium" | "Hard",
+  gameLenght: 5 | 10 | 15,
+  score: number,
+
+
+questions:
+  questionArray: Question[],
+  gameType: "boolean" | "multiple" | "mixed", ??
+

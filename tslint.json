@@ -1,0 +1,61 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-airbnb"
+  ],
+  "jsRules": {},
+  "rules": {
+    "array-type": false,
+    "jsx-no-multiline-js": false,
+    "no-boolean-literal-compare": false,
+    "export-name": false,
+    "import-name": false,
+    "max-line-length": false,
+    "ter-max-len": [
+      true,
+      120
+    ],
+    "object-shorthand-properties-first": false,
+    "trailing-comma": [
+      true,
+      "always"
+    ],
+    "interface-over-type-literal": false,
+    "interface-name": false,
+    "ter-arrow-parens": [
+      true,
+      "as-needed"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case"
+    ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "case-insensitive",
+        "grouped-imports": false,
+        "named-imports-order": "case-insensitive",
+        "module-source-path": "full"
+      }
+    ],
+    "member-access": [
+      true,
+      "no-public"
+    ],
+    "arrow-return-shorthand": true,
+    "prefer-function-over-method": false,
+    "prefer-template": true,
+    "no-any": true,
+    "no-null-keyword": false,
+    "no-console": false,
+    "no-empty-interface": false,
+    "eofline": true,
+    "no-empty": false
+  },
+  "rulesDirectory": []
+}
