@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { colorTheme } from '../Common/colorVariables';
 
@@ -31,7 +31,7 @@ type IProps = {};
 
 type Props = DispatchProps & StateProps & IProps;
 
-class Menu extends PureComponent<Props, IState> {
+class Menu extends Component<Props, IState> {
 
   playerNameInputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
     this.setState({

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import * as Styled from './Layout.styled';
 // import { IProps, IState } from './Layout.types';
 
@@ -11,7 +11,7 @@ type IProps = {
 };
 type IState = {};
 
-class Layout extends PureComponent<IProps, IState> {
+class Layout extends Component<IProps, IState> {
 
   static defaultProps = {
     isGameStarted: false,

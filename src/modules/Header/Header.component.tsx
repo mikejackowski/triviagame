@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GameState } from '../../store/game/state';
 // import { RootState } from '../../store/rootState';
@@ -14,7 +14,7 @@ type DispatchProps = {};
 
 type Props = IProps & StateProps;
 
-class Header extends PureComponent<Props, IState> {
+class Header extends Component<Props, IState> {
 
   render() {
 
