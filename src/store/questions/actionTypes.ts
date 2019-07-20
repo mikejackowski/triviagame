@@ -1,0 +1,30 @@
+import { Question } from './state';
+
+export interface GetQuestionsRequested {
+  type: '@question/GetQuestionsRequested';
+}
+
+export interface GetQuestionsFailed {
+  type: '@question/GetQuestionsFailed';
+}
+
+export interface GetQuestionsSuccess {
+  type: '@question/GetQuestionsSuccess';
+}
+
+export interface ChangeCurrentQuestion {
+  currentQuestionId: number;
+  type: '@question/ChangeCurrentQuestion';
+}
+
+export interface SetQuestionsArray {
+  questionsArray: Question[];
+  type: '@question/SetQuestionsArray';
+}
+
+export type QuestionAction =
+  GetQuestionsRequested
+  | SetQuestionsArray
+  | ChangeCurrentQuestion
+  | GetQuestionsFailed
+  | GetQuestionsSuccess;

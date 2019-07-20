@@ -1,6 +1,7 @@
 import { Dispatch } from 'react';
+import { RootState } from '../rootState';
 import * as actionTypes from './actionTypes';
-import { Difficulty, GameLenght, GameState, QuestionsType } from './state';
+import { Difficulty, GameLenght, QuestionsType } from './state';
 
 const gameStartRequested = (): actionTypes.GameStartRequested => ({
   type: '@game/GameStartRequested'
@@ -30,15 +31,18 @@ export const setPlayerName = (playerName: string): actionTypes.SetPlayerName => 
   type: '@game/SetPlayerName',
 });
 
-export const setGameScore = (score: number): actionTypes.SetGameScore => ({
-  score,
-  type: '@game/SetGameScore',
+export const addPoint = (): actionTypes.AddPoint => ({
+  type: '@game/AddPoint'
 });
 
-export const startGame = () => {
-  return async (dispatch: Dispatch<actionTypes.GameAction>, getState: () => GameState) => { // tu moglby byc rootstate
-    dispatch(gameStartRequested());
-    console.log('zaciagam pytania');
-    dispatch(gameStart());
-  };
-};
+export const finishGame = (): actionTypes.FinishGame => ({
+  type: '@game/FinishGame'
+});
+
+export const startGame = (): actionTypes.StartGame => ({
+  type: '@game/StartGame'
+});
+
+export const setNewGame = (): actionTypes.SetNewGame => ({
+  type: '@game/SetNewGame'
+});

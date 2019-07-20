@@ -13,8 +13,15 @@ const gameStartCompleted = (state: GameState): GameState => ({
 
 const startGame = (state: GameState): GameState => ({
   ...state,
+  gameFinished: false,
   gameInProgress: true,
   score: 0,
+});
+
+const finishGame = (state: GameState): GameState => ({
+  ...state,
+  gameFinished: true,
+  gameInProgress: false,
 });
 
 const setGameLenght = (state: GameState, action: actionTypes.SetGameLenght): GameState => ({
@@ -37,21 +44,30 @@ const setPlayerName = (state: GameState, action: actionTypes.SetPlayerName): Gam
   playerName: action.playerName
 });
 
-const setGameScore = (state: GameState, action: actionTypes.SetGameScore): GameState => ({
+const addPoint = (state: GameState): GameState => ({
   ...state,
-  score: action.score
+  score: state.score + 1
+});
+
+const setNewGame = (state: GameState): GameState => ({
+  ...state,
+  gameFinished: false,
+  gameInProgress: false,
+  score: 0,
 });
 
 const gameReducer = (state = initialState, action: actionTypes.GameAction) => {
   switch (action.type) {
+    case '@game/SetNewGame': return setNewGame(state);
     case '@game/StartGame': return startGame(state);
+    case '@game/FinishGame': return finishGame(state);
     case '@game/GameStartRequested': return gameStartRequested(state);
     case '@game/GameStartCompleted': return gameStartCompleted(state);
     case '@game/SetGameLenght': return setGameLenght(state, action);
     case '@game/SetQuestionsType': return setQuestionsType(state, action);
     case '@game/SetDifficulty': return setDifficulty(state, action);
     case '@game/SetPlayerName': return setPlayerName(state, action);
-    case '@game/SetGameScore': return setGameScore(state, action);
+    case '@game/AddPoint': return addPoint(state);
     default: return state;
   }
 };

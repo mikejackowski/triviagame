@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import * as Styled from './Button.styled';
 
 type IProps = {
@@ -7,18 +7,20 @@ type IProps = {
   onButtonClick: () => void;
 };
 
-class Button extends Component<IProps> {
+const Button: React.SFC<IProps> = props => {
 
-  render() {
-    return (
-      <Styled.Button
-        disabled={this.props.disabled}
-        onClick={this.props.onButtonClick}
-      >
-        {this.props.children}
-      </Styled.Button>
-    );
-  }
-}
+  return (
+    <Styled.Button
+      disabled={props.disabled}
+      onClick={props.onButtonClick}
+    >
+      {props.children}
+    </Styled.Button>
+  );
+};
+
+Button.defaultProps = {
+  disabled: false
+};
 
 export default Button;

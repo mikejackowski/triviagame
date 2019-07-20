@@ -17,7 +17,7 @@ const store = createStore(
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <Layout isGamestarted={false}/>
+      <Layout/>
     </Provider>
   );
 };

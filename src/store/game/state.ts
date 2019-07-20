@@ -1,7 +1,7 @@
 export enum Difficulty {
-  EASY = 'Easy',
-  MEDIUM = 'Medium',
-  HARD = 'Hard'
+  EASY = 'easy',
+  MEDIUM = 'medium',
+  HARD = 'hard'
 }
 
 export enum QuestionsType {
@@ -19,6 +19,7 @@ export enum GameLenght {
 export interface GameState {
   isLoading: boolean;
   gameInProgress: boolean;
+  gameFinished: boolean;
   playerName: string;
   difficulty: Difficulty;
   gameLenght: GameLenght;
@@ -28,6 +29,7 @@ export interface GameState {
 
 export const initialState: GameState = {
   difficulty: Difficulty.EASY,
+  gameFinished: false,
   gameInProgress: false,
   gameLenght: GameLenght.SHORT,
   isLoading: false,

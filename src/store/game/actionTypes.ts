@@ -6,10 +6,14 @@ export interface GameStartRequested {
 export interface GameStartCompleted {
   success: boolean;
   type: '@game/GameStartCompleted';
-}
+} // TODO: check if this will be needed
 
 export interface StartGame {
   type: '@game/StartGame';
+}
+
+export interface FinishGame {
+  type: '@game/FinishGame';
 }
 
 export interface SetDifficulty {
@@ -32,17 +36,22 @@ export interface SetPlayerName {
   playerName: string;
 }
 
-export interface SetGameScore {
-  type: '@game/SetGameScore';
-  score: number;
+export interface AddPoint {
+  type: '@game/AddPoint';
+}
+
+export interface SetNewGame {
+  type: '@game/SetNewGame';
 }
 
 export type GameAction =
   StartGame
+  | FinishGame
   | GameStartRequested
   | GameStartCompleted
   | SetDifficulty
   | SetGameLenght
   | SetQuestionsType
   | SetPlayerName
-  | SetGameScore;
+  | AddPoint
+  | SetNewGame;

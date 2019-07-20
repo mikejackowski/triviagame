@@ -18,6 +18,7 @@ type DispatchProps = {
 };
 
 type StateProps = {
+  playerName: string,
   difficulty: Difficulty,
   gameLenght: GameLenght,
   toBeatScore: number,
@@ -25,7 +26,6 @@ type StateProps = {
 };
 
 type IState = {
-  playerName: string;
 };
 type IProps = {};
 
@@ -38,9 +38,7 @@ class Menu extends Component<Props, IState> {
   };
 
   playerNameInputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
-    this.setState({
-      playerName: e.currentTarget.value
-    });
+    this.props.setPlayerName(e.currentTarget.value);
   }
 
   difficultyHandler = (changeTo: 'Harder' | 'Easier') => () => {
@@ -77,7 +75,6 @@ class Menu extends Component<Props, IState> {
       }
       return null;
     }
-
     if (gameLenght === GameLenght.LONG) {
       return this.props.setGameLenght(GameLenght.AVERAGE);
     }
@@ -87,14 +84,35 @@ class Menu extends Component<Props, IState> {
     return null;
   }
 
+  questionsTypeHandler = (changeTo: 'Simple' | 'Complex') => () => {
+    const questionsType = this.props.questionsType;
+
+    if (changeTo === 'Complex') {
+      if (questionsType === QuestionsType.MIX) {
+        return this.props.setQuestionsType(QuestionsType.MULTI);
+      }
+      if (questionsType === QuestionsType.SINGLE) {
+        return this.props.setQuestionsType(QuestionsType.MIX);
+      }
+      return null;
+    }
+
+    if (questionsType === QuestionsType.MULTI) {
+      return this.props.setQuestionsType(QuestionsType.MIX);
+    }
+    if (questionsType === QuestionsType.MIX) {
+      return this.props.setQuestionsType(QuestionsType.SINGLE);
+    }
+    return null;
+  }
+
   startGame = () => {
-    this.props.setPlayerName(this.state.playerName);
+    this.props.setPlayerName(this.props.playerName);
     this.props.startGame();
   }
 
   render() {
-    const { difficulty, gameLenght, toBeatScore } = this.props;
-    const { playerName } = this.state;
+    const { difficulty, playerName, gameLenght, questionsType, toBeatScore } = this.props;
     return (
       <Styled.MenuWrapper>
         <Styled.PlayerNameWrapper>
@@ -112,7 +130,7 @@ class Menu extends Component<Props, IState> {
           </Styled.InputWrapper>
         </Styled.PlayerNameWrapper>
         <Styled.SettingWrapper>
-          <Styled.DifficultyWrapper>
+          <Styled.InputWithControlsWrapper>
             <Styled.GameSetting>
               {difficulty}
             </Styled.GameSetting>
@@ -130,10 +148,31 @@ class Menu extends Component<Props, IState> {
                 -
               </Button>
             </Styled.DifficultyButtonWrapper>
-          </Styled.DifficultyWrapper>
+          </Styled.InputWithControlsWrapper>
         </Styled.SettingWrapper>
         <Styled.SettingWrapper>
-          <Styled.DifficultyWrapper>
+          <Styled.InputWithControlsWrapper>
+            <Styled.GameSetting>
+              {questionsType}
+            </Styled.GameSetting>
+            <Styled.DifficultyButtonWrapper>
+              <Button
+                onButtonClick={this.questionsTypeHandler('Complex')}
+                disabled={this.props.questionsType === QuestionsType.MULTI}
+              >
+                +
+              </Button>
+              <Button
+                onButtonClick={this.questionsTypeHandler('Simple')}
+                disabled={this.props.questionsType === QuestionsType.SINGLE}
+              >
+                -
+              </Button>
+            </Styled.DifficultyButtonWrapper>
+          </Styled.InputWithControlsWrapper>
+        </Styled.SettingWrapper>
+        <Styled.SettingWrapper>
+          <Styled.InputWithControlsWrapper>
             <Styled.GameSetting>
               {gameLenght}
             </Styled.GameSetting>
@@ -145,19 +184,19 @@ class Menu extends Component<Props, IState> {
                 +
               </Button>
               <Button
-                onButtonClick={() => this.gameLenghtHandler('Shorter')}
+                onButtonClick={this.gameLenghtHandler('Shorter')}
                 disabled={this.props.gameLenght === GameLenght.SHORT}
               >
                 -
               </Button>
             </Styled.DifficultyButtonWrapper>
-          </Styled.DifficultyWrapper>
+          </Styled.InputWithControlsWrapper>
         </Styled.SettingWrapper>
         <Styled.SettingWrapper>
           <Styled.StartGameButtonWrapper>
             <Button
               onButtonClick={this.startGame}
-              disabled={this.state.playerName.length ? false : true}
+              disabled={this.props.playerName.length ? false : true}
             >
               start game
             </Button>
@@ -172,6 +211,7 @@ class Menu extends Component<Props, IState> {
 const mapStateToProps = (state: RootState): StateProps => ({
   difficulty: state.game.difficulty,
   gameLenght: state.game.gameLenght,
+  playerName: state.game.playerName,
   questionsType: state.game.questionsType,
   toBeatScore: 1,
 });
