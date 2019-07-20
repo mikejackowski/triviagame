@@ -5,7 +5,6 @@ import actions from '../../store/actions';
 import { Question } from '../../store/questions/state';
 import { RootState } from '../../store/rootState';
 import Button from '../Common/Button/Button.component';
-import Loader from '../Common/Loader/Loader';
 import * as Styled from './Summary.styled';
 
 type DispatchProps = {
@@ -32,8 +31,13 @@ class Summary extends Component<Props, IState> {
   render() {
     return (
       <Styled.SummaryWrapper>
-        Your score was ${this.props.score};
-        <Button onButtonClick={this.loadNewGame}>
+        <Styled.ScoreWrapper>
+          Your score was:
+          <Styled.ScoreDiv>
+            {((this.props.score / (this.props.questionsArray.length + 1)) * 100).toFixed(1)}%
+          </Styled.ScoreDiv>
+        </Styled.ScoreWrapper>
+        <Button action={true} onButtonClick={this.loadNewGame}>
           Start new game
         </Button>
       </Styled.SummaryWrapper>

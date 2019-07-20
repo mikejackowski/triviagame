@@ -6,4 +6,5 @@ export const QuestionWrapper = styled.div`
   place-items: center;
   color: ${colorTheme.activeFont};
   font-size: 2em;
+  text-align: center;
 `;

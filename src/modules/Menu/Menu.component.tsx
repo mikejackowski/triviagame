@@ -85,25 +85,12 @@ class Menu extends Component<Props, IState> {
   }
 
   questionsTypeHandler = (changeTo: 'Simple' | 'Complex') => () => {
-    const questionsType = this.props.questionsType;
 
     if (changeTo === 'Complex') {
-      if (questionsType === QuestionsType.MIX) {
-        return this.props.setQuestionsType(QuestionsType.MULTI);
-      }
-      if (questionsType === QuestionsType.SINGLE) {
-        return this.props.setQuestionsType(QuestionsType.MIX);
-      }
-      return null;
+      return this.props.setQuestionsType(QuestionsType.MULTI);
     }
+    return this.props.setQuestionsType(QuestionsType.SINGLE);
 
-    if (questionsType === QuestionsType.MULTI) {
-      return this.props.setQuestionsType(QuestionsType.MIX);
-    }
-    if (questionsType === QuestionsType.MIX) {
-      return this.props.setQuestionsType(QuestionsType.SINGLE);
-    }
-    return null;
   }
 
   startGame = () => {
@@ -115,7 +102,7 @@ class Menu extends Component<Props, IState> {
     const { difficulty, playerName, gameLenght, questionsType, toBeatScore } = this.props;
     return (
       <Styled.MenuWrapper>
-        <Styled.PlayerNameWrapper>
+        <Styled.SettingWrapper>
           <Styled.InputWrapper>
             <Styled.PlayerNameInput
               theme={colorTheme}
@@ -128,7 +115,7 @@ class Menu extends Component<Props, IState> {
               To beat: {toBeatScore}
             </Styled.PreviousHighScoreDiv>
           </Styled.InputWrapper>
-        </Styled.PlayerNameWrapper>
+        </Styled.SettingWrapper>
         <Styled.SettingWrapper>
           <Styled.InputWithControlsWrapper>
             <Styled.GameSetting>
@@ -193,14 +180,15 @@ class Menu extends Component<Props, IState> {
           </Styled.InputWithControlsWrapper>
         </Styled.SettingWrapper>
         <Styled.SettingWrapper>
-          <Styled.StartGameButtonWrapper>
+          <Styled.InputWrapper>
             <Button
+              action={true}
               onButtonClick={this.startGame}
               disabled={this.props.playerName.length ? false : true}
             >
               start game
             </Button>
-          </Styled.StartGameButtonWrapper>
+          </Styled.InputWrapper>
         </Styled.SettingWrapper>
       </Styled.MenuWrapper>
     );

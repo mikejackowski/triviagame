@@ -1,15 +1,5 @@
-import { Dispatch } from 'react';
-import { RootState } from '../rootState';
 import * as actionTypes from './actionTypes';
 import { Difficulty, GameLenght, QuestionsType } from './state';
-
-const gameStartRequested = (): actionTypes.GameStartRequested => ({
-  type: '@game/GameStartRequested'
-});
-
-const gameStart = (): actionTypes.StartGame => ({
-  type: '@game/StartGame'
-});
 
 export const setQuestionsType = (questionsType: QuestionsType): actionTypes.SetQuestionsType => ({
   questionsType,

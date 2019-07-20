@@ -1,4 +1,5 @@
 export const colorTheme = {
-  activeFont: `rgba(255, 255, 255, 1)`,
-  inactiveFont: `rgba(251, 244, 243, 0.75)`
+  activeFont: `rgba(75, 75, 75, 1)`,
+  disabledBackground: `#bbb`,
+  inactiveFont: `rgba(132, 132, 132, 0.75)`
 };

@@ -6,13 +6,14 @@ export const Wrapper = styled.div`
   height: 100%;
   padding: 5px;
   align-items: center;
+  color: white;
   justify-content: center;
-  background-image: linear-gradient(to right, #CFBF70 21%, #FCB792 80%);
+  background-color: #e3e3e3;
   box-sizing: border-box;
 `
 
 export const GameName = styled.div`
-  -webkit-text-stroke: 2px fuchsia;
+  -webkit-text-stroke: 2px orange;
   font-size: 3em;
   font-weight: bold;
 `

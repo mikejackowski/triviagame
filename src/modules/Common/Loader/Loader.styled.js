@@ -14,7 +14,7 @@ export const LoaderBubble = styled.div`
   width: 11px;
   height: 11px;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
-  background: white;
+  background: #424242;
   border-radius: 50%;
 
   :nth-child(1) {

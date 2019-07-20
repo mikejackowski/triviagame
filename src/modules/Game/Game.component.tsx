@@ -58,7 +58,7 @@ class Game extends Component<Props, IState> {
           <Styled.AnswerButtonWrapper>
             {answersArr.map(answer => {
               return (
-                <Button key={answer} onButtonClick={this.answerQuestion(answer)}>
+                <Button action={true} key={answer} onButtonClick={this.answerQuestion(answer)}>
                   {answer}
                 </Button>
               );

@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const GameWrapper = styled.div`
   display: grid;
-  grid-template-rows: 7fr 3fr;
   width: 100%;
   height: 100%;
   padding: 5%;

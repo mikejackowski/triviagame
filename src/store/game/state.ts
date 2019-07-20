@@ -6,8 +6,7 @@ export enum Difficulty {
 
 export enum QuestionsType {
   SINGLE = 'boolean',
-  MULTI = 'multiple',
-  MIX = 'mixed'
+  MULTI = 'multiple'
 }
 
 export enum GameLenght {

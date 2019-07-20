@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { colorTheme } from '../Common/colorVariables';
 
 export const MenuWrapper = styled.div`
   display: grid;
@@ -12,11 +13,8 @@ export const SettingWrapper = styled.div`
   width: 100%;
   display: grid;
   justify-items: center;
-`;
-
-export const PlayerNameWrapper = styled(SettingWrapper)`
   align-content: center;
-`
+`;
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -25,13 +23,11 @@ export const InputWrapper = styled.div`
   place-items: center;
 `;
 
-export const StartGameButtonWrapper = styled(InputWrapper)`
-  height: 50%;
-`;
-
 export const InputWithControlsWrapper = styled(InputWrapper)`
   grid-template-columns: 8fr 2fr;
   height: 50%;
+  padding: 5px;
+  box-sizing: border-box;
 `;
 
 export const GameSetting = styled.div`
@@ -40,7 +36,8 @@ export const GameSetting = styled.div`
   height: 100%;
   place-items: center;
   font-size: 2.5em;
-  font-weigh: bold;
+  font-weight: bold;
+  color: ${colorTheme.activeFont};
   text-transform: uppercase;
 `
 

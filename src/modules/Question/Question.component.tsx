@@ -1,3 +1,4 @@
+import he from 'he';
 import React from 'react';
 import * as Styled from './Question.styled';
 
@@ -9,7 +10,7 @@ const QuestionComponent: React.SFC<IProps> = props => {
 
   return (
     <Styled.QuestionWrapper>
-      {props.question}
+      {he.decode(props.question)}
     </Styled.QuestionWrapper>
   );
 };
