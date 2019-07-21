@@ -188,7 +188,7 @@ class Menu extends Component<Props, IState> {
               onButtonClick={this.startGame}
               disabled={this.props.playerName.length ? false : true}
             >
-              start game
+              start
             </Button>
           </Styled.InputWrapper>
         </Styled.SettingWrapper>

@@ -63,7 +63,7 @@ class Summary extends Component<Props, IState> {
           </Styled.ScoreDiv>
         </Styled.ScoreWrapper>
         <Button action={true} onButtonClick={this.loadNewGame}>
-          Start new game
+          new game
         </Button>
       </Styled.SummaryWrapper>
     );
