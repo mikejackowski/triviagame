@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/triviagame/static/css/main.b7102639.chunk.css",
+    "main.js": "/triviagame/static/js/main.98215d73.chunk.js",
+    "main.js.map": "/triviagame/static/js/main.98215d73.chunk.js.map",
+    "runtime~main.js": "/triviagame/static/js/runtime~main.eb595a49.js",
+    "runtime~main.js.map": "/triviagame/static/js/runtime~main.eb595a49.js.map",
+    "static/js/2.75501045.chunk.js": "/triviagame/static/js/2.75501045.chunk.js",
+    "static/js/2.75501045.chunk.js.map": "/triviagame/static/js/2.75501045.chunk.js.map",
+    "index.html": "/triviagame/index.html",
+    "precache-manifest.6f74cf13cc2cc425dc66909084728614.js": "/triviagame/precache-manifest.6f74cf13cc2cc425dc66909084728614.js",
+    "service-worker.js": "/triviagame/service-worker.js",
+    "static/css/main.b7102639.chunk.css.map": "/triviagame/static/css/main.b7102639.chunk.css.map"
+  }
+}
