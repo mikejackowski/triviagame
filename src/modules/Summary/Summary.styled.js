@@ -4,9 +4,8 @@ import { colorTheme } from '../Common/colorVariables';
 export const SummaryWrapper = styled.div`
   display: grid;
   width: 100%;
-  height: 100%;
   padding: 5px;
-  grid-template-rows: auto 10% 10%;
+  grid-template-rows: auto;
   box-sizing: border-box;
 `
 
@@ -42,7 +41,7 @@ export const QuestionWrapper = styled.div`
 export const QuestionsWrapper = styled.div`
   display: grid;
   grid-template-rows: auto;
-  grid-row-gap: 5%;
+  grid-row-gap: 2%;
   overflow: auto;
 `
 
@@ -64,4 +63,6 @@ export const Question = styled.div`
 export const AnswerText = styled.div`
   font-weight: bold;
   color: ${colorTheme.activeFont};
+  box-sizing: border-box;
+  margin-bottom: 2px;
 `
