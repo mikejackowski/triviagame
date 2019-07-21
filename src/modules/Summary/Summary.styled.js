@@ -11,10 +11,12 @@ export const SummaryWrapper = styled.div`
 
 export const ScoreWrapper = styled.div`
   display: grid;
+  padding: 10px;
   font-size: 2em;
   font-weight: bold;
   place-items: center;
   border-top: 2px dashed gray;
+  box-sizing: border-box;
 `
 
 export const ScoreDiv = styled.div`
@@ -64,5 +66,5 @@ export const AnswerText = styled.div`
   font-weight: bold;
   color: ${colorTheme.activeFont};
   box-sizing: border-box;
-  margin-bottom: 2px;
+  margin-bottom: 10px;
 `
