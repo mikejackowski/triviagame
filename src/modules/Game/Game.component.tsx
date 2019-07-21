@@ -69,6 +69,9 @@ class Game extends Component<Props, IState> {
 
       return (
         <Styled.GameWrapper>
+          <Styled.CategoryWrapper>
+            {currentQuestion.category}
+          </Styled.CategoryWrapper>
           <QuestionComponent question={currentQuestion.question}/>
           <Styled.AnswerButtonWrapper>
             {answersArr.map(answer => {
