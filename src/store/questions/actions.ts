@@ -26,6 +26,12 @@ export const changeCurrentQuestion = (currentQuestionId: number): actionTypes.Ch
   type: '@question/ChangeCurrentQuestion'
 });
 
+export const answerQuestion = (questionId: number, answer: string): actionTypes.AnswerQuestion => ({
+  answer,
+  questionId,
+  type: '@question/AnswerQuestion',
+});
+
 export const getQuestsions = () => {
   return async (dispatch: Dispatch<actionTypes.QuestionAction>, getState: () => RootState) => {
     dispatch(getQuestionsRequested());
@@ -46,16 +52,17 @@ export const getQuestsions = () => {
       questions.data.results.map((el: Question, index: number) => {
         questionsArray.push({
           category: el.category,
-          correct_answer: el.correct_answer,
+          correctAnswer: el.correctAnswer,
           difficulty: el.difficulty,
           id: index,
-          incorrect_answers: el.incorrect_answers,
+          incorrectAnswers: el.incorrectAnswers,
           question: el.question,
           type: el.type,
+          userAnswer: '',
         });
       });
 
-      dispatch(setQuestionsArray(questionsArray));
+      await dispatch(setQuestionsArray(questionsArray));
       dispatch(getQuestionsSuccess());
     } catch (err) {
       dispatch(getQuestionsFailed());

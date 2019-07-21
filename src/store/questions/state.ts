@@ -6,8 +6,9 @@ export type Question = {
   type: QuestionsType;
   difficulty: Difficulty;
   question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
+  correctAnswer: string;
+  incorrectAnswers: string[];
+  userAnswer: string;
 };
 
 export interface QuestionsState {

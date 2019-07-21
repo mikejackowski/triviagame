@@ -14,6 +14,7 @@ type DispatchProps = {
   addPoint: () => void;
   changeCurrentQuestion: (questionId: number) => void;
   finishGame: () => void;
+  answerQuestion: (questionId: number, answer: string) => void;
 };
 
 type StateProps = {
@@ -32,8 +33,9 @@ class Game extends Component<Props, IState> {
     this.props.getQuestions();
   }
 
-  answerQuestion = (answer: string) => () => {
-    const correctAnswer = this.props.questionsArray[this.props.currentQuestionId].correct_answer;
+  answerQuestion = (questionId: number, answer: string) => () => {
+    this.props.answerQuestion(questionId, answer);
+    const correctAnswer = this.props.questionsArray[this.props.currentQuestionId].correctAnswer;
     if (answer === correctAnswer) {
       this.props.addPoint();
     }
@@ -46,11 +48,11 @@ class Game extends Component<Props, IState> {
   render() {
     const { questionsArray, currentQuestionId } = { ...this.props };
 
-    if (this.props.questionsArray.length > 0) {
+    if (this.props.questionsArray.length > 0 && !this.props.isLoading) {
       let answersArr: string[] = [];
       const currentQuestion = questionsArray[currentQuestionId];
-      answersArr = currentQuestion.incorrect_answers.concat(
-        currentQuestion.correct_answer).sort((a, b) => 0.5 - Math.random()
+      answersArr = currentQuestion.incorrectAnswers.concat(
+        currentQuestion.correctAnswer).sort((a, b) => 0.5 - Math.random()
       );
       return (
         <Styled.GameWrapper>
@@ -58,7 +60,7 @@ class Game extends Component<Props, IState> {
           <Styled.AnswerButtonWrapper>
             {answersArr.map(answer => {
               return (
-                <Button action={true} key={answer} onButtonClick={this.answerQuestion(answer)}>
+                <Button action={true} key={answer} onButtonClick={this.answerQuestion(currentQuestionId, answer)}>
                   {answer}
                 </Button>
               );
@@ -85,6 +87,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
 // tslint:disable-next-line:no-any
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
   addPoint: () => dispatch(actions.game.addPoint()),
+  answerQuestion: (questionId: number, answer: string) => dispatch(actions.question.answerQuestion(questionId, answer)),
   changeCurrentQuestion: (questionId: number) => dispatch(actions.question.changeCurrentQuestion(questionId)),
   finishGame: () => dispatch(actions.game.finishGame()),
   getQuestions: () => dispatch(actions.question.getQuestsions()),

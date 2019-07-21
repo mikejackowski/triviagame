@@ -27,8 +27,16 @@ const changeCurrentQuestion = (state: QuestionsState, action: actionTypes.Change
   currentQuestionId: action.currentQuestionId
 });
 
+const answerQuestion = (state: QuestionsState, action: actionTypes.AnswerQuestion): QuestionsState => ({
+  ...state,
+  questionsArray: state.questionsArray.map(
+    (question, i) => i === action.questionId ? { ...question, userAnser: action.answer } : question
+  )
+});
+
 const questionReducer = (state = initialState, action: actionTypes.QuestionAction) => {
   switch (action.type) {
+    case '@question/AnswerQuestion': return answerQuestion(state, action);
     case '@question/GetQuestionsRequested': return getQuestionsRequested(state);
     case '@question/GetQuestionsFailed': return getQuestionsFailed(state);
     case '@question/GetQuestionsSuccess': return getQuestionsSuccess(state);

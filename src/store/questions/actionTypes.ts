@@ -22,8 +22,15 @@ export interface SetQuestionsArray {
   type: '@question/SetQuestionsArray';
 }
 
+export interface AnswerQuestion {
+  answer: string;
+  questionId: number;
+  type: '@question/AnswerQuestion';
+}
+
 export type QuestionAction =
   GetQuestionsRequested
+  | AnswerQuestion
   | SetQuestionsArray
   | ChangeCurrentQuestion
   | GetQuestionsFailed
