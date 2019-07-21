@@ -22,7 +22,9 @@ export const ScoreWrapper = styled.div`
 export const ScoreDiv = styled.div`
   color: ${colorTheme.activeFont};
   text-align: center;
+  font-size: 30px;
 `
+
 export const ScoreSpan = styled.span`
   color: ${colorTheme.activeFont};
   text-align: center;
