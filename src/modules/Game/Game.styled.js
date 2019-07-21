@@ -4,6 +4,7 @@ export const GameWrapper = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
+  grid-template-rows: 50% 50%;
   padding: 5%;
   align-items: center;
   box-sizing: border-box;

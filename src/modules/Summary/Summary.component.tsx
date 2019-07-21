@@ -1,3 +1,4 @@
+import he from 'he';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -6,7 +7,6 @@ import { Question } from '../../store/questions/state';
 import { RootState } from '../../store/rootState';
 import Button from '../Common/Button/Button.component';
 import * as Styled from './Summary.styled';
-
 type DispatchProps = {
   setNewGame: () => void;
   setQuestionsArray: (array: Question[]) => void;
@@ -29,12 +29,37 @@ class Summary extends Component<Props, IState> {
   }
 
   render() {
+    const { questionsArray } = { ...this.props };
     return (
       <Styled.SummaryWrapper>
+          <Styled.QuestionsWrapper>
+            {questionsArray.map(question => {
+              if (question.userAnswer === question.correctAnswer) {
+                return (
+                  <Styled.QuestionWrapper key={question.id}>
+                    <Styled.Answer>{he.decode('&#9989;')}</Styled.Answer>
+                    <Styled.Question>
+                      {he.decode(question.question)}
+                      <Styled.AnswerText>{he.decode(question.correctAnswer.toUpperCase())}</Styled.AnswerText>
+                    </Styled.Question>
+                  </Styled.QuestionWrapper>
+                );
+              }
+              return (
+                <Styled.QuestionWrapper key={question.id}>
+                  <Styled.Answer>{he.decode('&#10060;')}</Styled.Answer>
+                  <Styled.Question>
+                    {he.decode(question.question)}
+                    <Styled.AnswerText>{he.decode(question.correctAnswer.toUpperCase())}</Styled.AnswerText>
+                  </Styled.Question>
+                </Styled.QuestionWrapper>
+              );
+            })}
+          </Styled.QuestionsWrapper>
         <Styled.ScoreWrapper>
-          Your score was:
           <Styled.ScoreDiv>
-            {((this.props.score / (this.props.questionsArray.length + 1)) * 100).toFixed(1)}%
+            <Styled.ScoreSpan>Your score was: </Styled.ScoreSpan>
+            {((this.props.score / (this.props.questionsArray.length)) * 100).toFixed(1)}%
           </Styled.ScoreDiv>
         </Styled.ScoreWrapper>
         <Button action={true} onButtonClick={this.loadNewGame}>
@@ -57,5 +82,3 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Summary);
-
-// export default connect<StateProps, DispatchProps, IProps, RootState>(mapStateToProps, mapDispatchToProps)(Menu);

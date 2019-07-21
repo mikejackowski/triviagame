@@ -24,6 +24,7 @@ export interface GameState {
   gameLenght: GameLenght;
   score: number;
   questionsType: QuestionsType;
+  highScore: number;
 }
 
 export const initialState: GameState = {
@@ -31,6 +32,7 @@ export const initialState: GameState = {
   gameFinished: false,
   gameInProgress: false,
   gameLenght: GameLenght.SHORT,
+  highScore: 0,
   isLoading: false,
   playerName: '',
   questionsType: QuestionsType.SINGLE,

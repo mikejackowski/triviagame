@@ -11,7 +11,8 @@ import SummaryComponent from '../Summary/Summary.component';
 
 type IProps = {
   gameInProgress: boolean,
-  gameFinished: boolean
+  gameFinished: boolean,
+  isLoading: boolean,
 };
 type IState = {};
 
@@ -21,27 +22,33 @@ class Layout extends Component<IProps, IState> {
 
     if (this.props.gameInProgress) {
       return (
-        <Styled.Wrapper>
-          <Header/>
-          <Game />
-        </Styled.Wrapper>
+        <Styled.LayoutWrapper>
+          <Styled.Wrapper>
+            <Header/>
+            <Game />
+          </Styled.Wrapper>
+        </Styled.LayoutWrapper>
       );
     }
 
     if (!this.props.gameInProgress && this.props.gameFinished) {
       return (
-        <Styled.Wrapper>
-          <Header/>
-          <SummaryComponent/>
-        </Styled.Wrapper>
+        <Styled.LayoutWrapper>
+          <Styled.Wrapper>
+            <Header/>
+            <SummaryComponent/>
+          </Styled.Wrapper>
+        </Styled.LayoutWrapper>
       );
     }
 
     return (
-      <Styled.Wrapper>
-        <Header/>
-        <Menu/>
-      </Styled.Wrapper>
+      <Styled.LayoutWrapper>
+        <Styled.Wrapper>
+          <Header/>
+          <Menu/>
+        </Styled.Wrapper>
+      </Styled.LayoutWrapper>
     );
   }
 }
@@ -49,6 +56,7 @@ class Layout extends Component<IProps, IState> {
 const mapStateToProps = (state: RootState): IProps => ({
   gameFinished: state.game.gameFinished,
   gameInProgress: state.game.gameInProgress,
+  isLoading: state.questions.isLoading,
 });
 
 export default connect(mapStateToProps, {})(Layout);

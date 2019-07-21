@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'react';
 import { RootState } from '../rootState';
 import * as actionTypes from './actionTypes';
-import { Question } from './state';
+import { IQuestion, Question } from './state';
 
 const getQuestionsRequested = (): actionTypes.GetQuestionsRequested => ({
   type: '@question/GetQuestionsRequested'
@@ -45,24 +45,23 @@ export const getQuestsions = () => {
 
       const questions = await axios.get(questionsUrl);
       if (questions.data.response_code !== 0) {
-        dispatch(getQuestionsFailed());
+        return dispatch(getQuestionsFailed());
       }
 
       const questionsArray: Question[] = [];
-      questions.data.results.map((el: Question, index: number) => {
+      questions.data.results.map((el: IQuestion, index: number) => {
         questionsArray.push({
           category: el.category,
-          correctAnswer: el.correctAnswer,
+          correctAnswer: el.correct_answer,
           difficulty: el.difficulty,
           id: index,
-          incorrectAnswers: el.incorrectAnswers,
+          incorrectAnswers: el.incorrect_answers,
           question: el.question,
           type: el.type,
           userAnswer: '',
         });
       });
-
-      await dispatch(setQuestionsArray(questionsArray));
+      dispatch(setQuestionsArray(questionsArray));
       dispatch(getQuestionsSuccess());
     } catch (err) {
       dispatch(getQuestionsFailed());

@@ -11,6 +11,16 @@ export type Question = {
   userAnswer: string;
 };
 
+export type IQuestion = {
+  id: number;
+  category: string;
+  type: QuestionsType;
+  difficulty: Difficulty;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+};
+
 export interface QuestionsState {
   questionsArray: Question[];
   currentQuestionId: number;

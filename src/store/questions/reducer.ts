@@ -30,7 +30,7 @@ const changeCurrentQuestion = (state: QuestionsState, action: actionTypes.Change
 const answerQuestion = (state: QuestionsState, action: actionTypes.AnswerQuestion): QuestionsState => ({
   ...state,
   questionsArray: state.questionsArray.map(
-    (question, i) => i === action.questionId ? { ...question, userAnser: action.answer } : question
+    (question, i) => i === action.questionId ? { ...question, userAnswer: action.answer } : question
   )
 });
 

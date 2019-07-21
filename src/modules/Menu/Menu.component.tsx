@@ -15,6 +15,7 @@ type DispatchProps = {
   setQuestionsType: (questionsType: QuestionsType) => void;
   setPlayerName: (playerName: string) => void;
   startGame: () => void;
+  getQuestions: () => void;
 };
 
 type StateProps = {
@@ -94,6 +95,7 @@ class Menu extends Component<Props, IState> {
   }
 
   startGame = () => {
+    this.props.getQuestions();
     this.props.setPlayerName(this.props.playerName);
     this.props.startGame();
   }
@@ -112,7 +114,7 @@ class Menu extends Component<Props, IState> {
               onChange={this.playerNameInputHandler}
             />
             <Styled.PreviousHighScoreDiv>
-              To beat: {toBeatScore}
+              To beat: {toBeatScore.toFixed(1)}%
             </Styled.PreviousHighScoreDiv>
           </Styled.InputWrapper>
         </Styled.SettingWrapper>
@@ -201,11 +203,12 @@ const mapStateToProps = (state: RootState): StateProps => ({
   gameLenght: state.game.gameLenght,
   playerName: state.game.playerName,
   questionsType: state.game.questionsType,
-  toBeatScore: 1,
+  toBeatScore: state.game.highScore,
 });
 
 // tslint:disable-next-line:no-any
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
+  getQuestions: () => dispatch(actions.question.getQuestsions()),
   setDifficulty: (difficulty: Difficulty) => dispatch(actions.game.setDifficulty(difficulty)),
   setGameLenght: (gameLenght: GameLenght) => dispatch(actions.game.setGameLenght(gameLenght)),
   setPlayerName: (playerName: string) => dispatch(actions.game.setPlayerName(playerName)),

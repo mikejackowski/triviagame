@@ -56,8 +56,14 @@ const setNewGame = (state: GameState): GameState => ({
   score: 0,
 });
 
+const setHighScore = (state: GameState, action: actionTypes.SetHighScore): GameState => ({
+  ...state,
+  highScore: action.highScore,
+});
+
 const gameReducer = (state = initialState, action: actionTypes.GameAction) => {
   switch (action.type) {
+    case 'game/SetHighScore': return setHighScore(state, action);
     case '@game/SetNewGame': return setNewGame(state);
     case '@game/StartGame': return startGame(state);
     case '@game/FinishGame': return finishGame(state);

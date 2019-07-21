@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { GameState } from '../../store/game/state';
-// import { RootState } from '../../store/rootState';
+import { RootState } from '../../store/rootState';
 import * as Styled from './Header.styled';
 
 type IProps = {};
 type IState = {};
 type StateProps = {
-  gameInProgress: boolean
+  gameInProgress: boolean;
+  currentQuestionId: number;
+  gameLenght: number;
+  gameFinished: boolean;
 };
-
-type DispatchProps = {};
 
 type Props = IProps & StateProps;
 
@@ -21,28 +21,25 @@ class Header extends Component<Props, IState> {
     if (this.props.gameInProgress) {
       return (
         <Styled.Wrapper>
-          1/10
+          {this.props.currentQuestionId + 1}/{this.props.gameLenght}
         </Styled.Wrapper>
       );
     }
 
-    return (
-      <Styled.Wrapper>
-        <Styled.GameName>
-          TRIVIA
-        </Styled.GameName>
-      </Styled.Wrapper>
-    );
+    if (!this.props.gameInProgress && this.props.gameFinished) {
+      return <Styled.Wrapper>summary</Styled.Wrapper>;
+    }
+
+    return <Styled.Wrapper>trivia</Styled.Wrapper>;
 
   }
 }
 
-const mapStateToProps = (state: GameState): StateProps => ({
-  // gameInProgress: state.game.gameInProgress
-  gameInProgress: state.gameInProgress
+const mapStateToProps = (state: RootState): StateProps => ({
+  currentQuestionId: state.questions.currentQuestionId,
+  gameFinished: state.game.gameFinished,
+  gameInProgress: state.game.gameInProgress,
+  gameLenght: state.game.gameLenght,
 });
 
-// export default connect<StateProps, DispatchProps, IProps, RootState>(mapStateToProps)(Header);
-// export default connect<StateProps, DispatchProps, IProps, RootState>(mapStateToProps)(Header);
-// export default connect<StateProps, DispatchProps, IProps, RootState>(mapStateToProps)(Header);
 export default connect(mapStateToProps, {})(Header);

@@ -1,3 +1,4 @@
+import he from 'he';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -15,12 +16,15 @@ type DispatchProps = {
   changeCurrentQuestion: (questionId: number) => void;
   finishGame: () => void;
   answerQuestion: (questionId: number, answer: string) => void;
+  setHighScore: (score: number) => void;
 };
 
 type StateProps = {
   questionsArray: Question[];
   isLoading: boolean
   currentQuestionId: number;
+  score: number;
+  highScore: number;
 };
 
 type IState = {};
@@ -29,9 +33,6 @@ type IProps = {};
 type Props = DispatchProps & StateProps & IProps;
 
 class Game extends Component<Props, IState> {
-  componentDidMount() {
-    this.props.getQuestions();
-  }
 
   answerQuestion = (questionId: number, answer: string) => () => {
     this.props.answerQuestion(questionId, answer);
@@ -40,20 +41,32 @@ class Game extends Component<Props, IState> {
       this.props.addPoint();
     }
     if (this.props.questionsArray.length === this.props.currentQuestionId + 1) {
+      this.checkHighScore();
       this.props.finishGame();
     }
     this.props.changeCurrentQuestion(this.props.currentQuestionId + 1);
   }
 
+  checkHighScore = () => {
+    const score = ((this.props.score / (this.props.questionsArray.length)) * 100);
+    if (score > this.props.highScore) {
+      this.props.setHighScore(score);
+    }
+  }
+
+  prepareAnswers = (currentQuestion: Question) => {
+    return currentQuestion.incorrectAnswers.concat(
+      currentQuestion.correctAnswer).sort((a, b) => 0.5 - Math.random()
+    );
+  }
+
   render() {
     const { questionsArray, currentQuestionId } = { ...this.props };
-
     if (this.props.questionsArray.length > 0 && !this.props.isLoading) {
       let answersArr: string[] = [];
       const currentQuestion = questionsArray[currentQuestionId];
-      answersArr = currentQuestion.incorrectAnswers.concat(
-        currentQuestion.correctAnswer).sort((a, b) => 0.5 - Math.random()
-      );
+      answersArr = this.prepareAnswers(currentQuestion);
+
       return (
         <Styled.GameWrapper>
           <QuestionComponent question={currentQuestion.question}/>
@@ -61,7 +74,7 @@ class Game extends Component<Props, IState> {
             {answersArr.map(answer => {
               return (
                 <Button action={true} key={answer} onButtonClick={this.answerQuestion(currentQuestionId, answer)}>
-                  {answer}
+                  {he.decode(answer)}
                 </Button>
               );
             })}
@@ -80,8 +93,10 @@ class Game extends Component<Props, IState> {
 
 const mapStateToProps = (state: RootState): StateProps => ({
   currentQuestionId: state.questions.currentQuestionId,
+  highScore: state.game.highScore,
   isLoading: state.questions.isLoading,
   questionsArray: state.questions.questionsArray,
+  score: state.game.score,
 });
 
 // tslint:disable-next-line:no-any
@@ -91,6 +106,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps
   changeCurrentQuestion: (questionId: number) => dispatch(actions.question.changeCurrentQuestion(questionId)),
   finishGame: () => dispatch(actions.game.finishGame()),
   getQuestions: () => dispatch(actions.question.getQuestsions()),
+  setHighScore: (score: number) => dispatch(actions.game.setHighScore(score)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

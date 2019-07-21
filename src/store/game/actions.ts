@@ -36,3 +36,8 @@ export const startGame = (): actionTypes.StartGame => ({
 export const setNewGame = (): actionTypes.SetNewGame => ({
   type: '@game/SetNewGame'
 });
+
+export const setHighScore = (highScore: number): actionTypes.SetHighScore => ({
+  highScore,
+  type: 'game/SetHighScore'
+});

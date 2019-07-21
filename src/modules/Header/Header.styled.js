@@ -10,10 +10,8 @@ export const Wrapper = styled.div`
   justify-content: center;
   background-color: #e3e3e3;
   box-sizing: border-box;
-`
-
-export const GameName = styled.div`
   -webkit-text-stroke: 2px orange;
   font-size: 3em;
   font-weight: bold;
+  text-transform: uppercase;
 `
