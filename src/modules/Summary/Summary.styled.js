@@ -5,7 +5,7 @@ export const SummaryWrapper = styled.div`
   display: grid;
   width: 100%;
   padding: 5px;
-  grid-template-rows: auto;
+  grid-template-rows: 80% 10% 10%;
   box-sizing: border-box;
 `
 
