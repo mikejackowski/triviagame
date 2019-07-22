@@ -26,23 +26,26 @@ export const LoaderBubble = styled.div`
     left: 6px;
     animation: loaderEllipsisMove 0.6s infinite;
   }
-:nth-child(3) {
+
+  :nth-child(3) {
     left: 26px;
     animation: loaderEllipsisMove 0.6s infinite;
   }
-:nth-child(4) {
+
+  :nth-child(4) {
     left: 45px;
     animation: loaderEllipsisDisappear 0.6s infinite;
   }
-  @keyframes loaderEllipsisAppear {
-  0% {
-    transform: scale(0);
-  }
 
-  100% {
-    transform: scale(1);
+  @keyframes loaderEllipsisAppear {
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
-}
 
   @keyframes loaderEllipsisDisappear {
     0% {
@@ -62,7 +65,7 @@ export const LoaderBubble = styled.div`
     100% {
       transform: translate(19px, 0);
     }
-}
+  }
 `
 
 

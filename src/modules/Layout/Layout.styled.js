@@ -4,10 +4,10 @@ export const Wrapper = styled.div`
   display: grid;
   width: 375px;
   height: 812px;
-  grid-template-rows: 10% 90%;
+  box-sizing: border-box;
   border: 2px dashed gray;
   border-radius: 5px;
-  box-sizing: border-box;
+  grid-template-rows: 10% 90%;
 `
 
 export const LayoutWrapper = styled.div`

@@ -3,8 +3,8 @@ import { colorTheme } from '../common/colorVariables';
 
 export const QuestionWrapper = styled.div`
   display: grid;
-  place-items: center;
   color: ${colorTheme.activeFont};
   font-size: 2em;
+  place-items: center;
   text-align: center;
 `;

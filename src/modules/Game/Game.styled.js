@@ -5,28 +5,28 @@ export const GameWrapper = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-rows: 10% 45% 45%;
-  padding: 5%;
-  align-items: center;
   box-sizing: border-box;
+  align-items: center;
+  padding: 5%;
+  grid-template-rows: 10% 45% 45%;
 `
 
 export const LoadingWrapper = styled(GameWrapper)`
   grid-template-rows: 1fr;
 `
 export const CategoryWrapper = styled.div`
-  text-align: center;
-  font-size: 1.5em;
-  text-transform: uppercase;
-  font-style: italic;
   color: ${colorTheme.activeFont};
+  font-size: 1.5em;
+  font-style: italic;
+  text-align: center;
+  text-transform: uppercase;
 `
 
 export const AnswerButtonWrapper = styled.div`
   display: grid;
-  grid-row-gap: 10px;
   width: 100%;
   height: 100%;
-  place-items: center;
   box-sizing: border-box;
+  grid-row-gap: 10px;
+  place-items: center;
 `

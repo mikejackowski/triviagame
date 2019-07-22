@@ -10,34 +10,34 @@ export const MenuWrapper = styled.div`
 `;
 
 export const SettingWrapper = styled.div`
-  width: 100%;
   display: grid;
-  justify-items: center;
+  width: 100%;
   align-content: center;
+  justify-items: center;
 `;
 
 export const InputWrapper = styled.div`
   position: relative;
-  width: 80%;
   display: grid;
+  width: 80%;
   place-items: center;
 `;
 
 export const InputWithControlsWrapper = styled(InputWrapper)`
-  grid-template-columns: 8fr 2fr;
   height: 50%;
-  padding: 5px;
   box-sizing: border-box;
+  padding: 5px;
+  grid-template-columns: 8fr 2fr;
 `;
 
 export const GameSetting = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
-  place-items: center;
+  color: ${colorTheme.activeFont};
   font-size: 2.5em;
   font-weight: bold;
-  color: ${colorTheme.activeFont};
+  place-items: center;
   text-transform: uppercase;
 `
 
@@ -46,28 +46,27 @@ export const DifficultyButtonWrapper = styled.div`
   flex-wrap: wrap;
 `
 
-
-
 export const PlayerNameInput = styled.input`
   width: 100%;
   height: fit-content;
-  font-size: 3em;
-  padding: 10%;
-  text-align: center;
-  background: transparent;
-  border: 3px dashed orange;
-  border-radius: 10px;
   box-sizing: border-box;
+  padding: 10%;
+  border: 3px dashed orange;
+  background: transparent;
+  border-radius: 10px;
   color: ${props => props.theme.activeFont };
+  font-size: 3em;
+  text-align: center;
 
   ::placeholder,
   ::-webkit-input-placeholder {
-    font-size: 0.9em;
     color: ${props => props.theme.inactiveFont };
+    font-size: 0.9em;
   }
+
   :-ms-input-placeholder {
-    font-size: 0.9em;
     color: ${props => props.theme.inactiveFont };
+    font-size: 0.9em;
   }
 `;
 
@@ -77,12 +76,12 @@ export const PreviousHighScoreDiv = styled.div`
   right: 0;
   width: fit-content;
   height: fit-content;
+  box-sizing: border-box;
   padding: 1.5%;
   border: 3px dashed white;
+  background-color: orange;
+  border-radius: 10px;
+  color: white;
   font-size: 1.5em;
   font-weight: bold;
-  border-radius: 10px;
-  background-color: orange;
-  color: white;
-  box-sizing: border-box;
 `

@@ -7,20 +7,20 @@ export const Button = styled.button`
   height: 100%;
   align-items: center;
   padding: 5px;
+  border: 2px dashed white;
+  background-color: orange;
+  border-radius: 10px;
+  color: white;
   font-size: 25px;
   font-weight: bold;
-  border: 2px dashed white;
-  border-radius: 10px;
-  background-color: orange;
   justify-self: center;
   text-transform: uppercase;
-  color: white;
 
   &:disabled,
-   &--disabled {
-     color: ${colorTheme.inactiveFont};
-     background-color: ${colorTheme.disabledBackground};
-     pointer-events: none;
+  &--disabled {
+    background-color: ${colorTheme.disabledBackground};
+    color: ${colorTheme.inactiveFont};
+    pointer-events: none;
   }
 `
 

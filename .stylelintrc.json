@@ -1,0 +1,12 @@
+{
+  "processors": [
+    "stylelint-processor-styled-components"
+  ],
+  "extends": ["stylelint-config-standard", "stylelint-config-idiomatic-order", "stylelint-config-styled-components"],
+  "ignoreFiles": "**/*.tsx",
+  "rules": {
+    "at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["function", "if", "each", "include", "mixin"]
+    }]
+  }
+}
