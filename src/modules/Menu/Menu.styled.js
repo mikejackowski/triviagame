@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colorTheme } from '../Common/colorVariables';
+import { colorTheme } from '../common/colorVariables';
 
 export const MenuWrapper = styled.div`
   display: grid;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorTheme } from '../Common/colorVariables';
+import { colorTheme } from '../common/colorVariables';
 
 export const GameWrapper = styled.div`
   display: grid;

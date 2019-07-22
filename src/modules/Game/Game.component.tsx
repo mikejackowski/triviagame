@@ -5,8 +5,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import actions from '../../store/actions';
 import { Question } from '../../store/questions/state';
 import { RootState } from '../../store/rootState';
-import Button from '../Common/Button/Button.component';
-import Loader from '../Common/Loader/Loader';
+import Button from '../common/Button/Button.component';
+import Loader from '../common/Loader/Loader';
 import QuestionComponent from '../Question/Question.component';
 import * as Styled from './Game.styled';
 
@@ -27,72 +27,73 @@ type StateProps = {
   highScore: number;
 };
 
-type IState = {};
 type IProps = {};
 
 type Props = DispatchProps & StateProps & IProps;
 
-class Game extends Component<Props, IState> {
+const Game: React.SFC<Props> = props => {
 
-  answerQuestion = (questionId: number, answer: string) => () => {
-    this.props.answerQuestion(questionId, answer);
-    const correctAnswer = this.props.questionsArray[this.props.currentQuestionId].correctAnswer;
+  const answerQuestion = (questionId: number, answer: string) => () => {
+    props.answerQuestion(questionId, answer);
+    const correctAnswer = props.questionsArray[props.currentQuestionId].correctAnswer;
     if (answer === correctAnswer) {
-      this.props.addPoint();
+      props.addPoint();
     }
-    if (this.props.questionsArray.length === this.props.currentQuestionId + 1) {
-      this.checkHighScore();
-      this.props.finishGame();
+    if (props.questionsArray.length === props.currentQuestionId + 1) {
+      checkHighScore();
+      props.finishGame();
     }
-    this.props.changeCurrentQuestion(this.props.currentQuestionId + 1);
-  }
+    props.changeCurrentQuestion(props.currentQuestionId + 1);
+  };
 
-  checkHighScore = () => {
-    const score = ((this.props.score / (this.props.questionsArray.length)) * 100);
-    if (score > this.props.highScore) {
-      this.props.setHighScore(score);
+  const checkHighScore = () => {
+    const score = ((props.score / (props.questionsArray.length)) * 100);
+    if (score > props.highScore) {
+      props.setHighScore(score);
     }
-  }
+  };
 
-  prepareAnswers = (currentQuestion: Question) => {
+  const prepareAnswers = (currentQuestion: Question) => {
     return currentQuestion.incorrectAnswers.concat(
       currentQuestion.correctAnswer).sort((a, b) => 0.5 - Math.random()
     );
-  }
+  };
 
-  render() {
-    const { questionsArray, currentQuestionId } = { ...this.props };
-    if (this.props.questionsArray.length > 0 && !this.props.isLoading) {
-      let answersArr: string[] = [];
-      const currentQuestion = questionsArray[currentQuestionId];
-      answersArr = this.prepareAnswers(currentQuestion);
-
-      return (
-        <Styled.GameWrapper>
-          <Styled.CategoryWrapper>
-            {currentQuestion.category}
-          </Styled.CategoryWrapper>
-          <QuestionComponent question={currentQuestion.question}/>
-          <Styled.AnswerButtonWrapper>
-            {answersArr.map(answer => {
-              return (
-                <Button action={true} key={answer} onButtonClick={this.answerQuestion(currentQuestionId, answer)}>
-                  {he.decode(answer)}
-                </Button>
-              );
-            })}
-          </Styled.AnswerButtonWrapper>
-        </Styled.GameWrapper>
-      );
-    }
+  const { questionsArray, currentQuestionId } = { ...props };
+  if (props.questionsArray.length > 0 && !props.isLoading) {
+    let answersArr: string[] = [];
+    const currentQuestion = questionsArray[currentQuestionId];
+    answersArr = prepareAnswers(currentQuestion);
 
     return (
-      <Styled.LoadingWrapper>
-        <Loader/>
-      </Styled.LoadingWrapper>
+      <Styled.GameWrapper>
+        <Styled.CategoryWrapper>
+          {currentQuestion.category}
+        </Styled.CategoryWrapper>
+        <QuestionComponent question={currentQuestion.question}/>
+        <Styled.AnswerButtonWrapper>
+          {answersArr.map(answer => {
+            return (
+              <Button
+                isActionButton={true}
+                key={answer}
+                buttonHandler={answerQuestion(currentQuestionId, answer)}
+              >
+                {he.decode(answer)}
+              </Button>
+            );
+          })}
+        </Styled.AnswerButtonWrapper>
+      </Styled.GameWrapper>
     );
   }
-}
+
+  return (
+    <Styled.LoadingWrapper>
+      <Loader/>
+    </Styled.LoadingWrapper>
+  );
+};
 
 const mapStateToProps = (state: RootState): StateProps => ({
   currentQuestionId: state.questions.currentQuestionId,

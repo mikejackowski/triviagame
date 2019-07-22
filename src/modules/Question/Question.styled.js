@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorTheme } from '../Common/colorVariables';
+import { colorTheme } from '../common/colorVariables';
 
 export const QuestionWrapper = styled.div`
   display: grid;

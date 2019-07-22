@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../store/rootState';
 import * as Styled from './Header.styled';
 
 type IProps = {};
-type IState = {};
 type StateProps = {
   gameInProgress: boolean;
   currentQuestionId: number;
@@ -14,26 +13,22 @@ type StateProps = {
 
 type Props = IProps & StateProps;
 
-class Header extends Component<Props, IState> {
+const Header: React.SFC<Props> = props => {
 
-  render() {
-
-    if (this.props.gameInProgress) {
-      return (
-        <Styled.Wrapper>
-          {this.props.currentQuestionId + 1}/{this.props.gameLenght}
-        </Styled.Wrapper>
-      );
-    }
-
-    if (!this.props.gameInProgress && this.props.gameFinished) {
-      return <Styled.Wrapper>summary</Styled.Wrapper>;
-    }
-
-    return <Styled.Wrapper>trivia</Styled.Wrapper>;
-
+  if (props.gameInProgress) {
+    return (
+      <Styled.Wrapper>
+        {props.currentQuestionId + 1}/{props.gameLenght}
+      </Styled.Wrapper>
+    );
   }
-}
+
+  if (!props.gameInProgress && props.gameFinished) {
+    return <Styled.Wrapper>summary</Styled.Wrapper>;
+  }
+
+  return <Styled.Wrapper>trivia</Styled.Wrapper>;
+};
 
 const mapStateToProps = (state: RootState): StateProps => ({
   currentQuestionId: state.questions.currentQuestionId,

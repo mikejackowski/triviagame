@@ -24,7 +24,7 @@ const finishGame = (state: GameState): GameState => ({
   gameInProgress: false,
 });
 
-const setGameLenght = (state: GameState, action: actionTypes.SetGameLenght): GameState => ({
+const setGameLenght = (state: GameState, action: actionTypes.SetLenght): GameState => ({
   ...state,
   gameLenght: action.gameLenght
 });
@@ -34,7 +34,7 @@ const setDifficulty = (state: GameState, action: actionTypes.SetDifficulty): Gam
   difficulty: action.difficulty
 });
 
-const setQuestionsType = (state: GameState, action: actionTypes.SetQuestionsType): GameState => ({
+const setQuestionsType = (state: GameState, action: actionTypes.SetType): GameState => ({
   ...state,
   questionsType: action.questionsType
 });
@@ -69,8 +69,8 @@ const gameReducer = (state = initialState, action: actionTypes.GameAction) => {
     case '@game/FinishGame': return finishGame(state);
     case '@game/GameStartRequested': return gameStartRequested(state);
     case '@game/GameStartCompleted': return gameStartCompleted(state);
-    case '@game/SetGameLenght': return setGameLenght(state, action);
-    case '@game/SetQuestionsType': return setQuestionsType(state, action);
+    case '@game/SetLenght': return setGameLenght(state, action);
+    case '@game/SetType': return setQuestionsType(state, action);
     case '@game/SetDifficulty': return setDifficulty(state, action);
     case '@game/SetPlayerName': return setPlayerName(state, action);
     case '@game/AddPoint': return addPoint(state);

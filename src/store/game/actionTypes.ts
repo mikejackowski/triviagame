@@ -21,13 +21,13 @@ export interface SetDifficulty {
   difficulty: Difficulty;
 }
 
-export interface SetGameLenght {
-  type: '@game/SetGameLenght';
+export interface SetLenght {
+  type: '@game/SetLenght';
   gameLenght: GameLenght;
 }
 
-export interface SetQuestionsType {
-  type: '@game/SetQuestionsType';
+export interface SetType {
+  type: '@game/SetType';
   questionsType: QuestionsType;
 }
 
@@ -55,8 +55,8 @@ export type GameAction =
   | GameStartRequested
   | GameStartCompleted
   | SetDifficulty
-  | SetGameLenght
-  | SetQuestionsType
+  | SetLenght
+  | SetType
   | SetPlayerName
   | AddPoint
   | SetNewGame

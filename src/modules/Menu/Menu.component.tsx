@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { colorTheme } from '../Common/colorVariables';
+import { colorTheme } from '../common/colorVariables';
 
 import { ThunkDispatch } from 'redux-thunk';
 import actions from '../../store/actions';
 import { Difficulty, GameLenght, QuestionsType } from '../../store/game/state';
 import { RootState } from '../../store/rootState';
-import Button from '../Common/Button/Button.component';
+import Button from '../common/Button/Button.component';
 import * as Styled from './Menu.styled';
 
 type DispatchProps = {
-  setDifficulty: (difficulty: Difficulty) => void;
-  setGameLenght: (gameLenght: GameLenght) => void;
-  setQuestionsType: (questionsType: QuestionsType) => void;
+  difficultyHandler: (newDiff: 'Harder' | 'Easier') => () => void;
+  gameLenghtHandler: (newLenght: 'Longer' | 'Shorter') => () => void;
+  questionTypesHandler: (newType: 'Complex' | 'Simple') => () => void;
   setPlayerName: (playerName: string) => void;
   startGame: () => void;
   getQuestions: () => void;
@@ -26,177 +26,117 @@ type StateProps = {
   questionsType: QuestionsType
 };
 
-type IState = {
-};
 type IProps = {};
 
 type Props = DispatchProps & StateProps & IProps;
 
-class Menu extends Component<Props, IState> {
+const Menu: React.SFC<Props> = props => {
+  // class Menu extends Component<Props, IState> {
 
-  state: IState = {
-    playerName: ''
+  const playerNameInputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
+    props.setPlayerName(e.currentTarget.value);
   };
 
-  playerNameInputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
-    this.props.setPlayerName(e.currentTarget.value);
-  }
+  const startGame = () => {
+    props.getQuestions();
+    props.setPlayerName(props.playerName);
+    props.startGame();
+  };
 
-  difficultyHandler = (changeTo: 'Harder' | 'Easier') => () => {
-    const difficulty = this.props.difficulty;
-
-    if (changeTo === 'Harder') {
-      if (difficulty === Difficulty.EASY) {
-        return this.props.setDifficulty(Difficulty.MEDIUM);
-      }
-      if (difficulty === Difficulty.MEDIUM) {
-        return this.props.setDifficulty(Difficulty.HARD);
-      }
-      return null;
-    }
-
-    if (difficulty === Difficulty.HARD) {
-      return this.props.setDifficulty(Difficulty.MEDIUM);
-    }
-    if (difficulty === Difficulty.MEDIUM) {
-      return this.props.setDifficulty(Difficulty.EASY);
-    }
-    return null;
-  }
-
-  gameLenghtHandler = (changeTo: 'Longer' | 'Shorter') => () => {
-    const gameLenght = this.props.gameLenght;
-
-    if (changeTo === 'Longer') {
-      if (gameLenght === GameLenght.AVERAGE) {
-        return this.props.setGameLenght(GameLenght.LONG);
-      }
-      if (gameLenght === GameLenght.SHORT) {
-        return this.props.setGameLenght(GameLenght.AVERAGE);
-      }
-      return null;
-    }
-    if (gameLenght === GameLenght.LONG) {
-      return this.props.setGameLenght(GameLenght.AVERAGE);
-    }
-    if (gameLenght === GameLenght.AVERAGE) {
-      return this.props.setGameLenght(GameLenght.SHORT);
-    }
-    return null;
-  }
-
-  questionsTypeHandler = (changeTo: 'Simple' | 'Complex') => () => {
-
-    if (changeTo === 'Complex') {
-      return this.props.setQuestionsType(QuestionsType.MULTI);
-    }
-    return this.props.setQuestionsType(QuestionsType.SINGLE);
-
-  }
-
-  startGame = () => {
-    this.props.getQuestions();
-    this.props.setPlayerName(this.props.playerName);
-    this.props.startGame();
-  }
-
-  render() {
-    const { difficulty, playerName, gameLenght, questionsType, toBeatScore } = this.props;
-    return (
-      <Styled.MenuWrapper>
-        <Styled.SettingWrapper>
-          <Styled.InputWrapper>
-            <Styled.PlayerNameInput
-              theme={colorTheme}
-              value={playerName}
-              placeholder={'New player'}
-              type={'text'}
-              onChange={this.playerNameInputHandler}
-            />
-            <Styled.PreviousHighScoreDiv>
-              To beat: {toBeatScore.toFixed(1)}%
-            </Styled.PreviousHighScoreDiv>
-          </Styled.InputWrapper>
-        </Styled.SettingWrapper>
-        <Styled.SettingWrapper>
-          <Styled.InputWithControlsWrapper>
-            <Styled.GameSetting>
-              {difficulty}
-            </Styled.GameSetting>
-            <Styled.DifficultyButtonWrapper>
-              <Button
-                onButtonClick={this.difficultyHandler('Harder')}
-                disabled={this.props.difficulty === Difficulty.HARD}
-              >
-                +
-              </Button>
-              <Button
-                onButtonClick={this.difficultyHandler('Easier')}
-                disabled={this.props.difficulty === Difficulty.EASY}
-              >
-                -
-              </Button>
-            </Styled.DifficultyButtonWrapper>
-          </Styled.InputWithControlsWrapper>
-        </Styled.SettingWrapper>
-        <Styled.SettingWrapper>
-          <Styled.InputWithControlsWrapper>
-            <Styled.GameSetting>
-              {questionsType}
-            </Styled.GameSetting>
-            <Styled.DifficultyButtonWrapper>
-              <Button
-                onButtonClick={this.questionsTypeHandler('Complex')}
-                disabled={this.props.questionsType === QuestionsType.MULTI}
-              >
-                +
-              </Button>
-              <Button
-                onButtonClick={this.questionsTypeHandler('Simple')}
-                disabled={this.props.questionsType === QuestionsType.SINGLE}
-              >
-                -
-              </Button>
-            </Styled.DifficultyButtonWrapper>
-          </Styled.InputWithControlsWrapper>
-        </Styled.SettingWrapper>
-        <Styled.SettingWrapper>
-          <Styled.InputWithControlsWrapper>
-            <Styled.GameSetting>
-              {gameLenght}
-            </Styled.GameSetting>
-            <Styled.DifficultyButtonWrapper>
-              <Button
-                onButtonClick={this.gameLenghtHandler('Longer')}
-                disabled={this.props.gameLenght === GameLenght.LONG}
-              >
-                +
-              </Button>
-              <Button
-                onButtonClick={this.gameLenghtHandler('Shorter')}
-                disabled={this.props.gameLenght === GameLenght.SHORT}
-              >
-                -
-              </Button>
-            </Styled.DifficultyButtonWrapper>
-          </Styled.InputWithControlsWrapper>
-        </Styled.SettingWrapper>
-        <Styled.SettingWrapper>
-          <Styled.InputWrapper>
+  const { difficulty, playerName, gameLenght, questionsType, toBeatScore } = props;
+  return (
+    <Styled.MenuWrapper>
+      <Styled.SettingWrapper>
+        <Styled.InputWrapper>
+          <Styled.PlayerNameInput
+            theme={colorTheme}
+            value={playerName}
+            placeholder={'New player'}
+            type={'text'}
+            onChange={playerNameInputHandler}
+          />
+          <Styled.PreviousHighScoreDiv>
+            To beat: {toBeatScore.toFixed(1)}%
+          </Styled.PreviousHighScoreDiv>
+        </Styled.InputWrapper>
+      </Styled.SettingWrapper>
+      <Styled.SettingWrapper>
+        <Styled.InputWithControlsWrapper>
+          <Styled.GameSetting>
+            {difficulty}
+          </Styled.GameSetting>
+          <Styled.DifficultyButtonWrapper>
             <Button
-              action={true}
-              onButtonClick={this.startGame}
-              disabled={this.props.playerName.length ? false : true}
+              buttonHandler={props.difficultyHandler('Harder')}
+              disabled={props.difficulty === Difficulty.HARD}
             >
-              start
+              +
             </Button>
-          </Styled.InputWrapper>
-        </Styled.SettingWrapper>
-      </Styled.MenuWrapper>
-    );
-
-  }
-}
+            <Button
+              buttonHandler={props.difficultyHandler('Easier')}
+              disabled={props.difficulty === Difficulty.EASY}
+            >
+              -
+            </Button>
+          </Styled.DifficultyButtonWrapper>
+        </Styled.InputWithControlsWrapper>
+      </Styled.SettingWrapper>
+      <Styled.SettingWrapper>
+        <Styled.InputWithControlsWrapper>
+          <Styled.GameSetting>
+            {questionsType}
+          </Styled.GameSetting>
+          <Styled.DifficultyButtonWrapper>
+            <Button
+              buttonHandler={props.questionTypesHandler('Complex')}
+              disabled={props.questionsType === QuestionsType.MULTI}
+            >
+              +
+            </Button>
+            <Button
+              buttonHandler={props.questionTypesHandler('Simple')}
+              disabled={props.questionsType === QuestionsType.SINGLE}
+            >
+              -
+            </Button>
+          </Styled.DifficultyButtonWrapper>
+        </Styled.InputWithControlsWrapper>
+      </Styled.SettingWrapper>
+      <Styled.SettingWrapper>
+        <Styled.InputWithControlsWrapper>
+          <Styled.GameSetting>
+            {gameLenght}
+          </Styled.GameSetting>
+          <Styled.DifficultyButtonWrapper>
+            <Button
+              buttonHandler={props.gameLenghtHandler('Longer')}
+              disabled={props.gameLenght === GameLenght.LONG}
+            >
+              +
+            </Button>
+            <Button
+              buttonHandler={props.gameLenghtHandler('Shorter')}
+              disabled={props.gameLenght === GameLenght.SHORT}
+            >
+              -
+            </Button>
+          </Styled.DifficultyButtonWrapper>
+        </Styled.InputWithControlsWrapper>
+      </Styled.SettingWrapper>
+      <Styled.SettingWrapper>
+        <Styled.InputWrapper>
+          <Button
+            isActionButton={true}
+            buttonHandler={startGame}
+            disabled={props.playerName.length ? false : true}
+          >
+            start
+          </Button>
+        </Styled.InputWrapper>
+      </Styled.SettingWrapper>
+    </Styled.MenuWrapper>
+  );
+};
 
 const mapStateToProps = (state: RootState): StateProps => ({
   difficulty: state.game.difficulty,
@@ -208,11 +148,11 @@ const mapStateToProps = (state: RootState): StateProps => ({
 
 // tslint:disable-next-line:no-any
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
+  difficultyHandler: (newDiff: 'Harder' | 'Easier') => () => dispatch(actions.game.setGameDifficulty(newDiff)),
+  gameLenghtHandler: (newLenght: 'Longer' | 'Shorter') => () => dispatch(actions.game.setGameLenght(newLenght)),
   getQuestions: () => dispatch(actions.question.getQuestsions()),
-  setDifficulty: (difficulty: Difficulty) => dispatch(actions.game.setDifficulty(difficulty)),
-  setGameLenght: (gameLenght: GameLenght) => dispatch(actions.game.setGameLenght(gameLenght)),
+  questionTypesHandler: (newType: 'Complex' | 'Simple') => () => dispatch(actions.game.setQuestionsType(newType)),
   setPlayerName: (playerName: string) => dispatch(actions.game.setPlayerName(playerName)),
-  setQuestionsType: (questionsType: QuestionsType) => dispatch(actions.game.setQuestionsType(questionsType)),
   startGame: () => dispatch(actions.game.startGame()),
 });
 

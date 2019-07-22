@@ -4,17 +4,17 @@ import * as Styled from './Button.styled';
 type IProps = {
   children?: ReactNode;
   disabled?: boolean;
-  onButtonClick: () => void;
-  action?: boolean;
+  buttonHandler: () => void;
+  isActionButton?: boolean;
 };
 
 const Button: React.SFC<IProps> = props => {
 
-  if (props.action) {
+  if (props.isActionButton) {
     return (
       <Styled.ActionButton
         disabled={props.disabled}
-        onClick={props.onButtonClick}
+        onClick={props.buttonHandler}
       >
         {props.children}
       </Styled.ActionButton>
@@ -24,7 +24,7 @@ const Button: React.SFC<IProps> = props => {
   return (
     <Styled.Button
       disabled={props.disabled}
-      onClick={props.onButtonClick}
+      onClick={props.buttonHandler}
     >
       {props.children}
     </Styled.Button>
