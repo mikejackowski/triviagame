@@ -41,7 +41,11 @@ export const setNewGame = (): actionTypes.SetNewGame => ({
 
 export const setHighScore = (highScore: number): actionTypes.SetHighScore => ({
   highScore,
-  type: 'game/SetHighScore'
+  type: '@game/SetHighScore'
+});
+
+export const quitGameLoad = (): actionTypes.QuitGameLoad => ({
+  type: '@game/QuitGameLoad'
 });
 
 export const setGameDifficulty = (newDiff: 'Harder' | 'Easier') => {

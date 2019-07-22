@@ -9,6 +9,7 @@ const getQuestionsRequested = (state: QuestionsState): QuestionsState => ({
 const getQuestionsFailed = (state: QuestionsState): QuestionsState => ({
   ...state,
   isLoading: false,
+  questionsLoadFailed: true,
 });
 
 const getQuestionsSuccess = (state: QuestionsState): QuestionsState => ({
@@ -34,8 +35,14 @@ const answerQuestion = (state: QuestionsState, action: actionTypes.AnswerQuestio
   )
 });
 
+const clearQuestionRequest = (state: QuestionsState): QuestionsState => ({
+  ...state,
+  questionsLoadFailed: false,
+});
+
 const questionReducer = (state = initialState, action: actionTypes.QuestionAction) => {
   switch (action.type) {
+    case '@question/ClearQuestionRequest': return clearQuestionRequest(state);
     case '@question/AnswerQuestion': return answerQuestion(state, action);
     case '@question/GetQuestionsRequested': return getQuestionsRequested(state);
     case '@question/GetQuestionsFailed': return getQuestionsFailed(state);

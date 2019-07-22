@@ -46,7 +46,11 @@ export interface SetNewGame {
 
 export interface SetHighScore {
   highScore: number;
-  type: 'game/SetHighScore';
+  type: '@game/SetHighScore';
+}
+
+export interface QuitGameLoad {
+  type: '@game/QuitGameLoad';
 }
 
 export type GameAction =
@@ -60,4 +64,5 @@ export type GameAction =
   | SetPlayerName
   | AddPoint
   | SetNewGame
-  | SetHighScore;
+  | SetHighScore
+  | QuitGameLoad;

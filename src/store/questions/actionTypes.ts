@@ -28,10 +28,15 @@ export interface AnswerQuestion {
   type: '@question/AnswerQuestion';
 }
 
+export interface ClearQuestionRequest {
+  type: '@question/ClearQuestionRequest';
+}
+
 export type QuestionAction =
   GetQuestionsRequested
   | AnswerQuestion
   | SetQuestionsArray
   | ChangeCurrentQuestion
   | GetQuestionsFailed
-  | GetQuestionsSuccess;
+  | GetQuestionsSuccess
+  | ClearQuestionRequest;

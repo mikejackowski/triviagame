@@ -9,11 +9,18 @@ type StateProps = {
   currentQuestionId: number;
   gameLenght: number;
   gameFinished: boolean;
+  questionsLoadFailed: boolean;
 };
 
 type Props = IProps & StateProps;
 
 const Header: React.SFC<Props> = props => {
+
+  if (props.questionsLoadFailed) {
+    return (
+      <Styled.Wrapper>error</Styled.Wrapper>
+    );
+  }
 
   if (props.gameInProgress) {
     return (
@@ -35,6 +42,7 @@ const mapStateToProps = (state: RootState): StateProps => ({
   gameFinished: state.game.gameFinished,
   gameInProgress: state.game.gameInProgress,
   gameLenght: state.game.gameLenght,
+  questionsLoadFailed: state.questions.questionsLoadFailed,
 });
 
 export default connect(mapStateToProps, {})(Header);

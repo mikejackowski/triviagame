@@ -25,10 +25,12 @@ export interface QuestionsState {
   questionsArray: Question[];
   currentQuestionId: number;
   isLoading: boolean;
+  questionsLoadFailed: boolean;
 }
 
 export const initialState: QuestionsState = {
   currentQuestionId: 0,
   isLoading: false,
   questionsArray: [],
+  questionsLoadFailed: false,
 };

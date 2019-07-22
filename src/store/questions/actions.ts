@@ -32,6 +32,10 @@ export const answerQuestion = (questionId: number, answer: string): actionTypes.
   type: '@question/AnswerQuestion',
 });
 
+export const clearQuestionRequest = (): actionTypes.ClearQuestionRequest => ({
+  type: '@question/ClearQuestionRequest'
+});
+
 export const getQuestsions = () => {
   return async (dispatch: Dispatch<actionTypes.QuestionAction>, getState: () => RootState) => {
     dispatch(getQuestionsRequested());

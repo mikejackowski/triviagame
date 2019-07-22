@@ -1,5 +1,5 @@
 import he from 'he';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import actions from '../../store/actions';
